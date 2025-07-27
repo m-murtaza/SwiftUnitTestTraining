@@ -7,12 +7,17 @@
 
 import Foundation
 
-final class SignupPresenter {
+protocol SignupPresenterType: AnyObject {
+    init(formModelValidator: SignupFormModelValidatorType, webService: SignupWebServiceType, delegate: SignupViewDelgateProtocol?)
+    func proceedSignup(data: SignupFormModel)
+}
+
+class SignupPresenter: SignupPresenterType {
     private var formModelValidator: SignupFormModelValidatorType
     private var webService: SignupWebServiceType
     private weak var delegate: SignupViewDelgateProtocol?
     
-    init(formModelValidator: SignupFormModelValidatorType, webService: SignupWebServiceType, delegate: SignupViewDelgateProtocol?) {
+    required init(formModelValidator: SignupFormModelValidatorType, webService: SignupWebServiceType, delegate: SignupViewDelgateProtocol?) {
         self.formModelValidator = formModelValidator
         self.webService = webService
         self.delegate = delegate

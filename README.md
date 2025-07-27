@@ -14,8 +14,7 @@ This repository is created to demonstrate my proficiency with **Unit Testing in 
 ## 🧪 What's Covered
 
 - ✅ Unit Testing with `XCTest`
-- ✅ Testable architecture (MVVM / MVC / Clean Swift depending on the demo)
 - ✅ Dependency Injection for testability
 - ✅ Mocking and stubbing external dependencies
 - ✅ Edge case and failure testing
-- ✅ Assertions and performance testing
+- ✅ Assertions

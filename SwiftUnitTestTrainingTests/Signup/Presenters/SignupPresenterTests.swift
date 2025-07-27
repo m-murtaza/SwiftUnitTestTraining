@@ -60,8 +60,9 @@ class SignupPresenterTests: XCTestCase {
         mockSignupViewDelegate.expactation = expextation
         //Act
         sut.proceedSignup(data: signupFormModel)
+        self.wait(for: [expextation], timeout: 5)
         
         //Assert
-        self.wait(for: [expextation], timeout: 5)
+        XCTAssertEqual(mockSignupViewDelegate.successfulCounter, 1)
     }
 }

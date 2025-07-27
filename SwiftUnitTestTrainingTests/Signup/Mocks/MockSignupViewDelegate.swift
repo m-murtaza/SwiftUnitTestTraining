@@ -10,8 +10,10 @@ import XCTest
 
 final class MockSignupViewDelegate: SignupViewDelgateProtocol {
     var expactation: XCTestExpectation?
+    var successfulCounter = 0
     
     func success() {
+        successfulCounter += 1
         expactation?.fulfill()
     }
     

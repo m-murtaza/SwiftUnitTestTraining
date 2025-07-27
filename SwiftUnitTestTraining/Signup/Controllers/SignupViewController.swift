@@ -50,8 +50,14 @@ private extension SignupViewController {
 //MARK: - setup
 private extension SignupViewController {
     func setupViews() {
+        firstNameField.placeholder = "First Name"
+        firstNameField.accessibilityIdentifier = "firstname"
+        emailField.placeholder = "Email"
+        emailField.accessibilityIdentifier = "email"
         emailField.keyboardType = .emailAddress
         emailField.textContentType = .emailAddress
+        passwordField.placeholder = "Password"
+        passwordField.accessibilityIdentifier = "password"
         passwordField.isSecureTextEntry = true
         signupButton.addTarget(self, action: #selector(signupAction), for: .touchUpInside)
     }

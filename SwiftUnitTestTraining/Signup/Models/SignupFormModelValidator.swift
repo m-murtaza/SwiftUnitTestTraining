@@ -7,7 +7,14 @@
 
 import Foundation
 
-final class SignupFormModelValidator {
+protocol SignupFormModelValidatorType {
+    func isFirstNameValid(firstName: String) -> Bool
+    func isEmailVaild(email: String) -> Bool
+    func isPasswordValid(password: String) -> Bool
+    func isPasswordMatched(password: String, confirm: String) -> Bool
+}
+
+final class SignupFormModelValidator: SignupFormModelValidatorType {
     
     enum Constants {
         static let firstNameMinLength = 3

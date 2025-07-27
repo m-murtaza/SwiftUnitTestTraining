@@ -63,4 +63,19 @@ final class SignupViewControllerTests: XCTestCase {
         //Assert
         XCTAssertTrue(mockSignupPresenter.isProcessSignupCalled, "processSignupCalled not called")
     }
+    
+    func testSignupViewController_WHenCreated_hasEmailCOntentTypeSet() throws {
+        let emailAddressField = try XCTUnwrap(sut.emailField)
+        XCTAssertEqual(emailAddressField.textContentType, .emailAddress)
+    }
+    
+    func testSignupViewController_WHenCreated_hasEmailKeyboardTypeSet() throws {
+        let emailAddressField = try XCTUnwrap(sut.emailField)
+        XCTAssertEqual(emailAddressField.keyboardType, .emailAddress)
+    }
+    
+    func testSignupViewController_WHenCreated_hasPasswordSecured() throws {
+        let passwordField = try XCTUnwrap(sut.passwordField)
+        XCTAssertTrue(passwordField.isSecureTextEntry)
+    }
 }

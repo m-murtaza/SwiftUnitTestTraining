@@ -70,7 +70,13 @@ private extension SignupViewController {
 //MARK: -
 extension SignupViewController: SignupViewDelgateProtocol {
     func success() {
+        let alert = UIAlertController(title: "Alert", message: "Success", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
         
+        DispatchQueue.main.async {
+            alert.view.accessibilityIdentifier = "successDialog"
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     func failure(error: SignupError) {

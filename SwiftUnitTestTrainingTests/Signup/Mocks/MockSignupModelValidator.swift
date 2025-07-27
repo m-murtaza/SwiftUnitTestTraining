@@ -19,6 +19,11 @@ class MockSignupModelValidator: SignupFormModelValidatorType {
         return isFristNameValid
     }
     
+    func isFirstNameThrows(firstName: String) throws -> Bool {
+        isFristNameValid = true
+        return isFristNameValid
+    }
+    
     func isEmailVaild(email: String) -> Bool {
         isEmailVaild = true
         return isEmailVaild

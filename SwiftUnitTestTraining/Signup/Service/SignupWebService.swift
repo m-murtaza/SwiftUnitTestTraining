@@ -15,6 +15,7 @@ protocol SignupWebServiceType {
 enum SignupError: Error {
     case responseModelParsingError
     case invalidRequestUrlStringError
+    case inValidCharactors
 }
 
 final class SignupWebService: SignupWebServiceType {

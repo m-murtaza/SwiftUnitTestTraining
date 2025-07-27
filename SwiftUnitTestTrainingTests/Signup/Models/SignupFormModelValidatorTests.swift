@@ -64,4 +64,14 @@ class SignupFormModelValidatorTests: XCTestCase {
         //Assert
         XCTAssertTrue(isPasswordMatched, "password and confirm password should matched")
     }
+    
+    func testSignupFormModelValidator_WhenFirstNameWithInValidCharactorsProvided_ShouldReturnThrows() {
+        XCTAssertThrowsError(try sut.isFirstNameThrows(firstName: "Mashood&"), "method should throws an error") { (error) in
+            XCTAssertEqual(error as? SignupError, SignupError.inValidCharactors)
+        }
+    }
+    
+    func testSignupFormModelValidator_WhenFirstNameWithValidCharactorsProvided_ShouldReturnNoThrows() {
+        XCTAssertNoThrow(try sut.isFirstNameThrows(firstName: "Mashood"), "method should not throws an error")
+    }
 }

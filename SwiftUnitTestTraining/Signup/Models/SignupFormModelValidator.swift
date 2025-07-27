@@ -9,6 +9,7 @@ import Foundation
 
 protocol SignupFormModelValidatorType {
     func isFirstNameValid(firstName: String) -> Bool
+    func isFirstNameThrows(firstName: String) throws -> Bool
     func isEmailVaild(email: String) -> Bool
     func isPasswordValid(password: String) -> Bool
     func isPasswordMatched(password: String, confirm: String) -> Bool
@@ -21,10 +22,25 @@ final class SignupFormModelValidator: SignupFormModelValidatorType {
         static let firstNameMaxLength = 10
         static let passwordMinLength = 3
         static let passwordMaxLength = 10
+        static let invalidCharatorSet = CharacterSet(charactersIn: "{}!@£$%^&&*()")
     }
     
     func isFirstNameValid(firstName: String) -> Bool {
         var returnValue = true
+        if firstName.count < Constants.firstNameMinLength || firstName.count > Constants.firstNameMaxLength {
+            returnValue = false
+        }
+        
+        return returnValue
+    }
+    
+    func isFirstNameThrows(firstName: String) throws -> Bool {
+        var returnValue = true
+        
+        if firstName.rangeOfCharacter(from: Constants.invalidCharatorSet) != nil {
+            throw SignupError.inValidCharactors
+        }
+        
         if firstName.count < Constants.firstNameMinLength || firstName.count > Constants.firstNameMaxLength {
             returnValue = false
         }

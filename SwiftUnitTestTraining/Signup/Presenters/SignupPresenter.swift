@@ -24,7 +24,11 @@ class SignupPresenter: SignupPresenterType {
     }
     
     func proceedSignup(data: SignupFormModel) {
-        if !formModelValidator.isFirstNameValid(firstName: data.firstName) {
+        do {
+            if !(try formModelValidator.isFirstNameValid(firstName: data.firstName)) {
+                return
+            }
+        } catch {
             return
         }
         

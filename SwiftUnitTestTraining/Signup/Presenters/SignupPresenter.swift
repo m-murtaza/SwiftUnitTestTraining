@@ -10,10 +10,12 @@ import Foundation
 final class SignupPresenter {
     private var formModelValidator: SignupFormModelValidatorType
     private var webService: SignupWebServiceType
+    private weak var delegate: SignupViewDelgateProtocol?
     
-    init(formModelValidator: SignupFormModelValidatorType, webService: SignupWebServiceType) {
+    init(formModelValidator: SignupFormModelValidatorType, webService: SignupWebServiceType, delegate: SignupViewDelgateProtocol?) {
         self.formModelValidator = formModelValidator
         self.webService = webService
+        self.delegate = delegate
     }
     
     func proceedSignup(data: SignupFormModel) {
@@ -39,8 +41,10 @@ final class SignupPresenter {
             email: data.email,
             password: data.password)
         
-        webService.signup(with: signupFormRequestModel) { response, error in
-            //TODO
+        webService.signup(with: signupFormRequestModel) { [weak self] response, error in
+            if let _ = response {
+                self?.delegate?.success()
+            }
         }
     }
 }

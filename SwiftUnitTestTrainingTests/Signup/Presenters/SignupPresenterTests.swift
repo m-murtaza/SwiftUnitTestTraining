@@ -13,6 +13,7 @@ class SignupPresenterTests: XCTestCase {
     var mockSignupModelValidator: MockSignupModelValidator!
     var mockSignupWebService: MockSignupWebService!
     var sut: SignupPresenter!
+    var mockSignupViewDelegate: MockSignupViewDelegate!
     
     override func setUp() {
         signupFormModel = SignupFormModel(firstName: "Mashood",
@@ -22,7 +23,8 @@ class SignupPresenterTests: XCTestCase {
                                               repeatPassword: "123456")
         mockSignupModelValidator = MockSignupModelValidator()
         mockSignupWebService = MockSignupWebService()
-        sut = SignupPresenter(formModelValidator: mockSignupModelValidator, webService: mockSignupWebService)
+        mockSignupViewDelegate = MockSignupViewDelegate()
+        sut = SignupPresenter(formModelValidator: mockSignupModelValidator, webService: mockSignupWebService, delegate: mockSignupViewDelegate)
     }
     
     override func tearDown() {
@@ -30,6 +32,7 @@ class SignupPresenterTests: XCTestCase {
         mockSignupModelValidator = nil
         mockSignupWebService = nil
         sut = nil
+        mockSignupViewDelegate = nil
     }
     
     func testSignupPresenter_WhenInfoProvided_WillValidateEachProperty() {
@@ -49,5 +52,16 @@ class SignupPresenterTests: XCTestCase {
         
         //Assert
         XCTAssertTrue(mockSignupWebService.isSignupMethodCalled)
+    }
+    
+    func testSignupPresenter_WhenSignupOperationSuccessful_CallSuccessOnViewDelegate() {
+        let expextation = self.expectation(description: "signup expectation")
+        
+        mockSignupViewDelegate.expactation = expextation
+        //Act
+        sut.proceedSignup(data: signupFormModel)
+        
+        //Assert
+        self.wait(for: [expextation], timeout: 5)
     }
 }

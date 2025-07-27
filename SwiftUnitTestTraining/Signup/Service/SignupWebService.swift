@@ -7,12 +7,17 @@
 
 import Foundation
 
+protocol SignupWebServiceType {
+    func signup(with requestModel: SignupFormRequestModel,
+                completion: @escaping (SignupResponseModel?, SignupError?) -> Void)
+}
+
 enum SignupError: Error {
     case responseModelParsingError
     case invalidRequestUrlStringError
 }
 
-final class SignupWebService {
+final class SignupWebService: SignupWebServiceType {
     
     private var urlSession: URLSession
     private var urlString: String

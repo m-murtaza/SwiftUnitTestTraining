@@ -52,6 +52,7 @@ private extension SignupViewController {
     func setupViews() {
         firstNameField.placeholder = "First Name"
         firstNameField.accessibilityIdentifier = "firstname"
+        lastNameField.accessibilityIdentifier = "lastname"
         emailField.placeholder = "Email"
         emailField.accessibilityIdentifier = "email"
         emailField.keyboardType = .emailAddress
@@ -59,7 +60,10 @@ private extension SignupViewController {
         passwordField.placeholder = "Password"
         passwordField.accessibilityIdentifier = "password"
         passwordField.isSecureTextEntry = true
+        repeatPasswordField.accessibilityIdentifier = "repeatPassword"
+        repeatPasswordField.isSecureTextEntry = true
         signupButton.addTarget(self, action: #selector(signupAction), for: .touchUpInside)
+        signupButton.accessibilityIdentifier = "submit"
     }
 }
 
@@ -70,6 +74,12 @@ extension SignupViewController: SignupViewDelgateProtocol {
     }
     
     func failure(error: SignupError) {
+        let alert = UIAlertController(title: "Alert", message: "Error", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
         
+        DispatchQueue.main.async {
+            alert.view.accessibilityIdentifier = "errorDialog"
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }

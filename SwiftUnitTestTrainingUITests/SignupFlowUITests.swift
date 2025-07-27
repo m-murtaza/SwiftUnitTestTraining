@@ -38,6 +38,36 @@ final class SignupFlowUITests: XCTestCase {
         XCTAssertTrue(email.isEnabled)
         XCTAssertTrue(password.isEnabled)
     }
+    
+    func testSignupFlow_WhenInvalidFormSubmitted_PresentErrorDialog() throws {
+        let app = XCUIApplication()
+        app.launch()
+        
+        let firstName = app.textFields["firstname"]
+        firstName.tap()
+        firstName.typeText("M")
+        
+        let lastName = app.textFields["lastname"]
+        lastName.tap()
+        lastName.typeText("A")
+        
+        let email = app.textFields["email"]
+        email.tap()
+        email.typeText("@")
+        
+        let password = app.secureTextFields["password"]
+        password.tap()
+        password.typeText("123456")
+        
+        let repeatPassword = app.secureTextFields["repeatPassword"]
+        repeatPassword.tap()
+        repeatPassword.typeText("123")
+        
+        let submit = app.buttons["submit"]
+        submit.tap()
+        
+        XCTAssertTrue(app.alerts["errorDialog"].waitForExistence(timeout: 1), "error alert dialog not shown")
+    }
 
     func testLaunchPerformance() throws {
         // This measures how long it takes to launch your application.

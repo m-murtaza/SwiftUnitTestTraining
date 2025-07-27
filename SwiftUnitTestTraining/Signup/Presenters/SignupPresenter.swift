@@ -24,23 +24,23 @@ class SignupPresenter: SignupPresenterType {
     }
     
     func proceedSignup(data: SignupFormModel) {
-        do {
-            if !(try formModelValidator.isFirstNameValid(firstName: data.firstName)) {
-                return
-            }
-        } catch {
+        if !formModelValidator.isFirstNameValid(firstName: data.firstName) {
+            delegate?.failure(error: SignupError.inValidField)
             return
         }
         
         if !formModelValidator.isEmailVaild(email: data.email) {
+            delegate?.failure(error: SignupError.inValidField)
             return
         }
         
         if !formModelValidator.isPasswordValid(password: data.password) {
+            delegate?.failure(error: SignupError.inValidField)
             return
         }
         
         if !formModelValidator.isPasswordMatched(password: data.password, confirm: data.repeatPassword) {
+            delegate?.failure(error: SignupError.inValidField)
             return
         }
         

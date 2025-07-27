@@ -16,6 +16,7 @@ enum SignupError: Error {
     case responseModelParsingError
     case invalidRequestUrlStringError
     case inValidCharactors
+    case inValidField
 }
 
 final class SignupWebService: SignupWebServiceType {
